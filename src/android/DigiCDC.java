@@ -31,7 +31,7 @@ import jp.ksksue.driver.serial.FTDriver;
 
 
 
-public class DigiCDC extends CordovaPlugin {
+public class Digicdc extends CordovaPlugin {
   private static final String ACTION_USB_PERMISSION ="com.digistump.digicdc.USB_PERMISSION";
   private static final String ACTION_PERM  ="register";
   private static final String ACTION_WRITE ="write";

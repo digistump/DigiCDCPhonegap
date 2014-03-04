@@ -3,7 +3,7 @@ var digicdc = {
         cordova.exec(
             successCallback, // success callback function
             errorCallback, // error callback function
-            'DigiCDC', // mapped to our native Java class called "DigiCDC"
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
             'register', // with this action name
             []
         ); 
@@ -12,7 +12,7 @@ var digicdc = {
         cordova.exec(
             successCallback, // success callback function
             errorCallback, // error callback function
-            'DigiCDC', // mapped to our native Java class called "DigiCDC"
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
             'write', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "text": "1"
@@ -23,7 +23,7 @@ var digicdc = {
         cordova.exec(
             successCallback, // success callback function
             errorCallback, // error callback function
-            'DigiCDC', // mapped to our native Java class called "DigiCDC"
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
             'write', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "text": "0"
@@ -34,7 +34,7 @@ var digicdc = {
         cordova.exec(
             successCallback, // success callback function
             errorCallback, // error callback function
-            'DigiCDC', // mapped to our native Java class called "DigiCDC"
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
             'write', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "text": "2"
@@ -43,4 +43,4 @@ var digicdc = {
     }
 
 }
-module.exports = LED;
+module.exports = digicdc;

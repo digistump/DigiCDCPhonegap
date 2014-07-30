@@ -8,10 +8,10 @@ var digicdc = {
             []
         ); 
     },
-    red: function(successCallback, errorCallback) {
+    red: function() {
         cordova.exec(
-            successCallback, // success callback function
-            errorCallback, // error callback function
+            function(){}, // success callback function
+            function(){}, // error callback function
             'Digicdc', // mapped to our native Java class called "DigiCDC"
             'write', // with this action name
             [{                  // and this array of custom arguments to create our entry
@@ -19,10 +19,10 @@ var digicdc = {
             }]
         ); 
     },
-    black: function(successCallback, errorCallback) {
+    black: function() {
         cordova.exec(
-            successCallback, // success callback function
-            errorCallback, // error callback function
+            function(){}, // success callback function
+            function(){}, // error callback function
             'Digicdc', // mapped to our native Java class called "DigiCDC"
             'write', // with this action name
             [{                  // and this array of custom arguments to create our entry
@@ -30,15 +30,42 @@ var digicdc = {
             }]
         ); 
     },
-    green: function(successCallback, errorCallback) {
+    green: function() {
         cordova.exec(
-            successCallback, // success callback function
-            errorCallback, // error callback function
+            function(){}, // success callback function
+            function(){}, // error callback function
             'Digicdc', // mapped to our native Java class called "DigiCDC"
             'write', // with this action name
             [{                  // and this array of custom arguments to create our entry
                 "text": "2"
             }]
+        ); 
+    },
+    wifi: function() {
+        cordova.exec(
+            function(){}, // success callback function
+            function(){}, // error callback function
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
+            'wifi', // with this action name
+            []
+        ); 
+    },
+    hide: function() {
+        cordova.exec(
+            function(){}, // success callback function
+            function(){}, // error callback function
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
+            'hide', // with this action name
+            []
+        ); 
+    },
+    show: function() {
+        cordova.exec(
+            function(){}, // success callback function
+            function(){}, // error callback function
+            'Digicdc', // mapped to our native Java class called "DigiCDC"
+            'show', // with this action name
+            []
         ); 
     }
 

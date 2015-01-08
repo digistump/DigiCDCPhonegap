@@ -31,13 +31,19 @@ import  android.app.Activity;
 
 import jp.ksksue.driver.serial.FTDriver;
 
+import jp.ksksue.driver.serial.FTDriver;
+
+
+
 
 
 
 public class Digicdc extends CordovaPlugin {
   private static final String ACTION_USB_PERMISSION ="com.digistump.digicdc.USB_PERMISSION";
   private static final String ACTION_PERM  ="register";
+  private static final String ACTION_CONNECT ="connect";
   private static final String ACTION_WRITE ="write";
+  private static final String ACTION_READ ="read";
 
 
     FTDriver mSerial;
@@ -72,7 +78,39 @@ public class Digicdc extends CordovaPlugin {
            callbackContext.success("HAVE PERM");
             return true;
           }
-          else{
+          else if(ACTION_CONNECT.equals(action)){
+
+
+
+
+              String permission = "android.permission.USB_PERMISSION";
+              int res = cordova.getActivity().checkCallingOrSelfPermission(permission);
+              if (res != PackageManager.PERMISSION_GRANTED){
+
+                      mSerial = new FTDriver((UsbManager) cordova.getActivity().getSystemService(Context.USB_SERVICE));
+                      PendingIntent permissionIntent = PendingIntent.getBroadcast(cordova.getActivity(), 0, new Intent(
+                            ACTION_USB_PERMISSION), 0);
+                      mSerial.setPermissionIntent(permissionIntent);
+                      if (!mSerial.begin(FTDriver.BAUD9600)) {
+                        callbackContext.error("Fail");
+                        return false;
+                      }
+                      else{
+                        callbackContext.success("GOT PERM");
+                        return true;
+                      }
+             }
+             if (!mSerial.begin(FTDriver.BAUD9600)) {
+              callbackContext.error("Fail");
+              return false;
+            }
+            else{
+              callbackContext.success("GOT PERM");
+              return true;
+            }
+          }
+          
+          else if(ACTION_WRITE.equals(action)){
           
 
 
@@ -86,16 +124,62 @@ public class Digicdc extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
               public void run() {
 
-                  if (!mSerial.begin(FTDriver.BAUD9600)) {
-                    callbackContext.error("Fail");
+                  //if (!mSerial.begin(FTDriver.BAUD9600)) {
+                  //  callbackContext.error("Fail");
                
 
-                  }
+                  //}
                   
                   mSerial.write(strWrite.getBytes(), strWrite.length());
 
-                  mSerial.end();
+                  //mSerial.end();
                   callbackContext.success("OK");
+
+              }
+            });
+                 
+            
+            return true;
+          }
+          else if(ACTION_READ.equals(action)){
+          
+
+
+            JSONObject arg_object = args.getJSONObject(0);
+            final String strWrite = arg_object.getString("text");
+            
+
+            
+
+            
+            cordova.getThreadPool().execute(new Runnable() {
+              public void run() {
+                  String mText;
+                  byte[] rbuf = new byte[4096];
+                  int len;
+                  int i;
+                  len = mSerial.read(rbuf);
+                  
+                  mSerial.write(strWrite.getBytes(), strWrite.length());
+                  mText = "";
+                  if(len > 0) {
+
+                    for(i=0;i<len;++i) {
+
+                        if (rbuf[i] == 0x0D) {
+                          mText = mText + "\r";
+                        } else if (rbuf[i] == 0x0A) {
+                          mText = mText + "\n";
+                        } else {
+                          mText = mText + "" +(char)rbuf[i];
+                        }
+                    }
+                    callbackContext.success(mText);
+
+                  }
+                  else{
+                    callbackContext.success("");
+                  }
 
               }
             });
@@ -115,5 +199,5 @@ public class Digicdc extends CordovaPlugin {
             callbackContext.error("FAIL2");
             return false;
         } 
-    }
+    return true; }
 }

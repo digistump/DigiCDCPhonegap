@@ -21,6 +21,7 @@
             </feature>
         </config-file>
 
-        <source-file src="src/android/Digicdc.java" target-dir="src/com/digistump/digicdc" />      
+        <source-file src="src/android/Digicdc.java" target-dir="src/com/digistump/digicdc" /> 
+        <source-file src="lib/ftdriver.jar" target-dir="libs" />     
      </platform>          
 </plugin>
